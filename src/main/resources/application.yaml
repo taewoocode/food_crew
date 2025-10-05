@@ -23,3 +23,12 @@ springdoc:
     path: /swagger-ui.html
     enabled: true
   show-actuator: true
+
+# 로그 설정
+logging:
+  level:
+    com.example.food_crew_blog: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
