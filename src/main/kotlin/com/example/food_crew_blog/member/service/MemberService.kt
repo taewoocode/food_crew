@@ -1,16 +1,16 @@
 package com.example.food_crew_blog.member.service
 
-import com.example.food_crew_blog.member.dto.MemberRegisterInfo
-import com.example.food_crew_blog.member.domain.Member
+import com.example.food_crew_blog.member.dto.MemberRegisterRequest
+import com.example.food_crew_blog.member.dto.MemberRegisterResponse
 
 interface MemberService {
     
     /**
      * 회원가입
-     * @param memberRegisterInfo 회원가입 정보
-     * @return 생성된 회원 정보
+     * @param memberRegisterRequest 회원가입 정보
+     * @return 생성된 회원 정보 (비밀번호 제외)
      */
-    fun registerMember(memberRegisterInfo: MemberRegisterInfo): Member
+    fun registerMember(memberRegisterRequest: MemberRegisterRequest): MemberRegisterResponse
     
     /**
      * 이메일 중복 확인
