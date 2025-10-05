@@ -27,14 +27,6 @@ interface MemberService {
      * @return 중복 여부
      */
     fun isNicknameExists(nickname: String): Boolean
-    
-    /**
-     * 회원 탈퇴
-     * @param memberDeleteRequest 탈퇴 요청 정보
-     * @return 탈퇴 응답 정보
-     */
-    fun deleteMember(memberDeleteRequest: MemberDeleteRequest): MemberDeleteResponse
-    
 
     /**
      * 회원탈퇴

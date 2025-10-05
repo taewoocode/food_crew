@@ -2,6 +2,8 @@ package com.example.food_crew_blog.member.controller
 
 import com.example.food_crew_blog.member.dto.MemberRegisterRequest
 import com.example.food_crew_blog.member.dto.MemberRegisterResponse
+import com.example.food_crew_blog.member.dto.MemberDeleteRequest
+import com.example.food_crew_blog.member.dto.MemberDeleteResponse
 import com.example.food_crew_blog.member.domain.Member
 import com.example.food_crew_blog.member.service.MemberService
 import io.swagger.v3.oas.annotations.Operation
@@ -99,5 +101,40 @@ class MemberController(
             "nickname" to nickname,
             "exists" to exists
         ))
+    }
+
+
+    @DeleteMapping("/delete")
+    @Operation(
+        summary = "회원 탈퇴",
+        description = "현재 로그인한 회원을 탈퇴합니다."
+    )
+    @ApiResponses(
+        value = [
+            ApiResponse(
+                responseCode = "200",
+                description = "회원 탈퇴 성공",
+                content = [Content(schema = Schema(implementation = MemberDeleteResponse::class))]
+            ),
+            ApiResponse(
+                responseCode = "400",
+                description = "잘못된 요청 데이터"
+            ),
+            ApiResponse(
+                responseCode = "401",
+                description = "인증되지 않은 사용자"
+            ),
+            ApiResponse(
+                responseCode = "403",
+                description = "비밀번호 불일치"
+            )
+        ]
+    )
+    fun deleteMember(
+        @Parameter(description = "탈퇴 요청 정보", required = true)
+        @Valid @RequestBody memberDeleteRequest: MemberDeleteRequest
+    ): ResponseEntity<MemberDeleteResponse> {
+        val response = memberService.deleteMember(memberDeleteRequest)
+        return ResponseEntity.ok(response)
     }
 }

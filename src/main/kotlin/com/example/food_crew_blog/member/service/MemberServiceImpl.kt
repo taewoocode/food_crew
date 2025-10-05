@@ -63,6 +63,9 @@ class MemberServiceImpl(
         return memberRepository.existsByNickname(nickname)
     }
 
+    /**
+     * 회원탈퇴
+     */
     @Transactional
     override fun deleteMember(memberDeleteRequest: MemberDeleteRequest): MemberDeleteResponse {
         val authentication = SecurityContextHolder.getContext().authentication
