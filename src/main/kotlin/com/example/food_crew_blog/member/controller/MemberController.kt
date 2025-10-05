@@ -1,6 +1,7 @@
 package com.example.food_crew_blog.member.controller
 
-import com.example.food_crew_blog.member.dto.MemberRegisterInfo
+import com.example.food_crew_blog.member.dto.MemberRegisterRequest
+import com.example.food_crew_blog.member.dto.MemberRegisterResponse
 import com.example.food_crew_blog.member.domain.Member
 import com.example.food_crew_blog.member.service.MemberService
 import io.swagger.v3.oas.annotations.Operation
@@ -32,7 +33,7 @@ class MemberController(
             ApiResponse(
                 responseCode = "201",
                 description = "회원가입 성공",
-                content = [Content(schema = Schema(implementation = Member::class))]
+                content = [Content(schema = Schema(implementation = MemberRegisterResponse::class))]
             ),
             ApiResponse(
                 responseCode = "400",
@@ -46,10 +47,10 @@ class MemberController(
     )
     fun registerMember(
         @Parameter(description = "회원가입 정보", required = true)
-        @Valid @RequestBody memberRegisterInfo: MemberRegisterInfo
-    ): ResponseEntity<Member> {
-        val member = memberService.registerMember(memberRegisterInfo)
-        return ResponseEntity.status(HttpStatus.CREATED).body(member)
+        @Valid @RequestBody memberRegisterRequest: MemberRegisterRequest
+    ): ResponseEntity<MemberRegisterResponse> {
+        val response = memberService.registerMember(memberRegisterRequest)
+        return ResponseEntity.status(HttpStatus.CREATED).body(response)
     }
 
     @GetMapping("/check-email")
